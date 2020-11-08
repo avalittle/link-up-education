@@ -1,6 +1,8 @@
 import React from 'react';
+
+import '../styles/about.css';
  
-const About = () => {
+const about = () => {
     return (
        <div>
           <h1>About US</h1>
@@ -9,4 +11,4 @@ const About = () => {
     );
 }
  
-export default About;
+export default about;
