@@ -12,8 +12,8 @@ import '../../styles/browse.css';
 
 const useStyles = makeStyles({
     root: {
-      'background-color': '#9FF4FE',
-      color: '#C4C4C4',
+      'background-color': '#C4C4C4',
+      color: '#FFFFFF',
     },
     bullet: {
       display: 'inline-block',
@@ -36,8 +36,8 @@ export default function UserCard(props){
     const bull = <span className={users.title}>•</span>;
     const { user } = props;
 
-    const handleEnroll = () => {
-        history.users(`/users/${users.title}`);
+    const handleMatch = () => {
+        history.users(`/users/${user.title}`);
     }
 
 
@@ -55,9 +55,9 @@ export default function UserCard(props){
               {user.assignment}
             </Typography>
           </CardContent>
-          { <CardActions>
-            <Button onClick={handleEnroll}size="small">Post Ad</Button>
-          </CardActions> }
+          <CardActions>
+            <Button onClick={handleMatch}size="small">Match</Button>
+          </CardActions>
         </Card>
         </li>
       );
