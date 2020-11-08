@@ -14,32 +14,33 @@ import { Button } from "@material-ui/core";
 
 import "../../styles/login.css";
 
-export default function CreateClass(props) {
-  const { onClose, open } = props;
+export default function CreatePost(props) {
+  const { course, onClose, open } = props;
   const { userHasAuthenticated } = useAppContext();
 
   const handleClose = () => {
     onClose();
   };
 
-  const [code, setCode] = useState('');
   const [name, setName] = useState('');
-  const [faculty, setFaculty] = useState('');
-  const handleCodeChange = e => { setCode(e.target.value); };
-  const handleNameChange = e => { setName(e.target.value); }
-  const handleFacultyChange = e => { setFaculty(e.target.value); }
+  const [assignment, setAssignment] = useState('');
+  const [description, setDescription] = useState('');
+  const handleNameChange = e => { setName(e.target.value); };
+  const handleDescriptionChange = e => { setDescription(e.target.value); }
+  const handleAssignmentChange = e => { setAssignment(e.target.value); }
 
   const handleNewCourse = async (e) => {
     e.preventDefault();
-    createCourse({
-        classId: code,
-        name: name,
-        faculty: faculty,
+    createPost({
+        course, 
+        name,
+        assignment,
+        description
     })
   }
 
-  function createCourse(course){
-      return API.post("lab-partner", "/create-class", {
+  function createPost(course){
+      return API.post("lab-partner", "/create-post", {
           body: course
       })
   }
@@ -50,34 +51,34 @@ export default function CreateClass(props) {
       aria-labelledby="simple-dialog-title"
       open={open}
     >
-      <DialogTitle id="simple-dialog-title">Create Class </DialogTitle>
+      <DialogTitle id="simple-dialog-title">Post Ad</DialogTitle>
       <List className="inputs">
         <ListItem>
           <TextField
             id="standard-basic"
-            label="Course Code"
-            onChange={handleCodeChange}
-            value={code}
-          />
-        </ListItem>
-        <ListItem>
-          <TextField
-            id="standard-basic"
-            label="Faculty"
-            onChange={handleFacultyChange}
-            value={faculty}
-          />
-        </ListItem>
-        <ListItem>
-          <TextField
-            id="standard-basic"
-            label="Course Name"
+            label="Name"
             onChange={handleNameChange}
             value={name}
           />
         </ListItem>
         <ListItem>
-          <Button onClick={handleNewCourse}>Submit</Button>
+          <TextField
+            id="standard-basic"
+            label="Assignment"
+            onChange={handleAssignmentChange}
+            value={assignment}
+          />
+        </ListItem>
+        <ListItem>
+          <TextField
+            id="standard-basic"
+            label="Description"
+            onChange={handleDescriptionChange}
+            value={description}
+          />
+        </ListItem>
+        <ListItem>
+          <Button onClick={handleNewCourse}>Post Ad</Button>
         </ListItem>
       </List>
     </Dialog>

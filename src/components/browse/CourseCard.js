@@ -37,7 +37,7 @@ export default function CourseCard(props){
     const { course } = props;
 
     const handleEnroll = () => {
-        history.push(`/courses/${course.classId}`);
+        history.push(`/class/${course.classId}`);
     }
 
     return (

@@ -1,4 +1,3 @@
-import Coursepage from './Coursepage';
 import Usercard from './Usercard'
 
 import '../../styles/browse.css';

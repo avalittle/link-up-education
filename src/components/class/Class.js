@@ -1,17 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Dialog from "@material-ui/core/Dialog";
-import { blue } from "@material-ui/core/colors";
-import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
+
 import { Button } from "@material-ui/core";
 import { useParams } from 'react-router-dom';
-import { API } from 'aws-amplify';
 import UserList from './Userlist';
-import Usercard from './Usercard';
+import CreatePost from './CreatePost';
 
 const fakeUsers = [
     {
@@ -26,9 +19,9 @@ const fakeUsers = [
     }
 ]
 
-export default function Coursepage() {
+export default function Class() {
     const { id } = useParams();
-    console.log(id);
+    const [createAdOpen, setCreateAdOpen] = useState(false);
     const [students, setStudents] = useState(fakeUsers);
 
     useEffect(() => {
@@ -49,8 +42,12 @@ export default function Coursepage() {
         onLoad();
     }, []);
 
-    const handleAdCreate = (e) => {
-        //open ad menu
+    const handleClose = () => {
+        setCreateAdOpen(false);
+    }
+    
+    const handleAdCreate = () => {
+        setCreateAdOpen(true);
     }
 
     return (
@@ -59,6 +56,7 @@ export default function Coursepage() {
             <div>
                 <h1>{id.toUpperCase()}</h1>
             </div>
+            <Button onClick={handleAdCreate}>Create Ad</Button>
             {/* Filters */}
             <div style={{ width: '100%' }}>
             </div>
@@ -66,8 +64,8 @@ export default function Coursepage() {
                  { students.length > 0 &&  
                     <UserList users={fakeUsers} /> 
                  }
-                <Button onClick={handleAdCreate}>Create Ad</Button>
             </div> 
+            <CreatePost class={id} open={createAdOpen} onClose={handleClose}/>
         </div >
     )
 } 

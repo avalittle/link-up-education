@@ -9,10 +9,10 @@ import '../../styles/browse.css';
 import Dropdown from '../global/Dropdown';
 import CreateClass from './CreateClass';
 
-const fakeDepartments = ['Engineering', 'School of Computing', 'Biology', 'Chemistry'];
-
 export default function Browse() {
+    const [loaded, setLoaded] = useState(false);
     const [classes, setClasses] = useState([]);
+    const [faculties, setFaculties] = useState([]);
     const [department, setDepartment] = useState('')
     const [courseCode, setCourseCode] = useState('');
     const [open, setOpen] = useState(false);
@@ -27,10 +27,16 @@ export default function Browse() {
             return API.get("lab-partner", `/classes/faculty/${department}`)
         }
 
+        function loadFaculties(){
+            return API.get("lab-partner", '/classes/get-faculties');
+        }
+
         async function onLoad(){
             try {
                 const classes = await loadCourses();
                 setClasses(classes);
+                const facultyList = await loadFaculties();
+                setFaculties(facultyList);
             } catch(e) {
                 console.log(e);
             }
@@ -48,8 +54,9 @@ export default function Browse() {
         console.log(department);
         if (department !== ''){
             onDepartment(department);
-        } else {
+        } else if (!loaded) {
             onLoad();
+            setLoaded(true);
         }
     }, [department])
 
@@ -87,7 +94,7 @@ export default function Browse() {
             {/* Filters */}
             <div style={{ width: '50%', margin: 'auto', textAlign: 'center'}}>
                 {/* Department Dropdown */}
-                <Dropdown handleChange={setDepartment} data={fakeDepartments} prompt={"Select a Department"} />
+                <Dropdown handleChange={setDepartment} data={faculties} prompt={"Select a Department"} />
                 {/* Course Number Input */}
                 <TextField onChange={handleCourseCode} value={courseCode} placeholder="Course Code"></TextField>
                 <br></br>
