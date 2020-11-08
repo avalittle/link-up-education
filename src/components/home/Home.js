@@ -7,11 +7,13 @@ import RegisterPopup from './Register';
 
 // Import styling
 import '../../styles/home.css'
+import leftSide from './waves.png';
 
-const title = 'School Work Partner Finder'
-const subtitle = 'Your one stop shop for never being sewered by a bad lab partner again!'
+const title = 'Login'
 
-export default function Home(){
+console.log(leftSide)
+
+export default function Home() {
     const [loginOpen, setLoginOpen] = useState(false);
     const [registerOpen, setRegisterOpen] = useState(false);
 
@@ -30,17 +32,23 @@ export default function Home(){
 
     return (
         <div className='container'>
-            <div className='title'>
-                <h1>{title}</h1>
-                <h2>{subtitle}</h2>
+            <div className='left-half'>
+                <img src={leftSide} alt="leftside" className='image'></img>
             </div>
-            <div className='login'>
-                <Button onClick={openLogin} variant='contained'>Login</Button>
-                <br></br>
-                <Button onClick={openRegister} variant='contained'>Register</Button>
+            <div className='right-half'>
+                <div className='title'>
+                    <h1>{title}</h1>
+                </div>
+                <div className='login'>
+                    <Button onClick={openLogin} size="large" variant='contained'>Login</Button>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <Button onClick={openRegister} size="large" variant='contained'>Register</Button>
+                </div>
+                <LoginPopup open={loginOpen} onClose={handleClose} />
+                <RegisterPopup open={registerOpen} onClose={handleClose} />
             </div>
-            <LoginPopup open={loginOpen} onClose={handleClose} />
-            <RegisterPopup open={registerOpen} onClose={handleClose} />
         </div>
     );
 }
