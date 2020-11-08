@@ -1,6 +1,6 @@
 import Usercard from './Usercard'
 
-import '../../styles/browse.css';
+import '../../styles/coursepage.css';
 
 export default function UserList({ users }) {
 
