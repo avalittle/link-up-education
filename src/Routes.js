@@ -3,14 +3,15 @@ import { Route, Switch } from "react-router-dom";
 import Home from "./components/home/Home";
 import Browse from './components/browse/Browse';
 import Coursepage from './components/coursepage/Coursepage'
+import Matches from './components/matches/matches';
 
 export default function Routes() {
     return (
         <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/browse" component={Browse} />
-            <Route exact path="/matches" component={Home} />
-            <Route exact path="/class/:id" component={Coursepage} />s
+            <Route exact path="/class/:id" component={Coursepage} />
+            <Route exact path="/matches" component={Matches}/>
         </Switch>
     );
 }
