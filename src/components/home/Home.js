@@ -37,7 +37,7 @@ export default function Home(){
             <div className='login'>
                 <Button onClick={openLogin} variant='contained'>Login</Button>
                 <br></br>
-                <Button onClick={openRegister} variant='contained'>Signup</Button>
+                <Button onClick={openRegister} variant='contained'>Register</Button>
             </div>
             <LoginPopup open={loginOpen} onClose={handleClose} />
             <RegisterPopup open={registerOpen} onClose={handleClose} />
