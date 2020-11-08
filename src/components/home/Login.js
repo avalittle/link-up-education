@@ -14,7 +14,6 @@ import { Button } from "@material-ui/core";
 
 import "../../styles/login.css";
 
-const emails = ["username@gmail.com", "user02@gmail.com"];
 const useStyles = makeStyles({
   avatar: {
     backgroundColor: blue[100],

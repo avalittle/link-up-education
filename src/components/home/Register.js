@@ -109,7 +109,7 @@ export default function Register(props) {
                 />
               </ListItem>
               <ListItem>
-                <Dropdown data={fakeSchools} prompt={"Select a School"} handleChange={setSchool} />
+                <Dropdown data={fakeSchools} prompt={"School"} handleChange={setSchool} />
               </ListItem>
               <ListItem>
                 <TextField
