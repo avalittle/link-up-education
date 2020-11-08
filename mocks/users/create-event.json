@@ -1,0 +1,8 @@
+{
+    "body": "{\"firstName\":\"Ava\",\"lastName\":\"Little\",\"email\":\"ava.little@queensu.ca\",\"school\":\"Queen's University\",\"program\":\"Computer Engineering\"}",
+    "requestContext": {
+        "identity": {
+            "cognitoIdentityId": "USER-SUB-1234"
+        }
+    }
+}
