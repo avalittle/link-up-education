@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 // Import Components
 import Button from '@material-ui/core/Button';
-import LoginPopup from './Login';
-import RegisterPopup from './Register';
+import Login from './Login';
+import Register from './Register';
 
 // Import styling
 import '../../styles/home.css'
@@ -49,6 +49,11 @@ export default function Home() {
                 <LoginPopup open={loginOpen} onClose={handleClose} />
                 <RegisterPopup open={registerOpen} onClose={handleClose} />
             </div>
+<<<<<<< HEAD
+=======
+            <Login open={loginOpen} onClose={handleClose} />
+            <Register open={registerOpen} onClose={handleClose} />
+>>>>>>> 1993a5d6dc768b27db7a6afc93f56c6f88b35132
         </div>
     );
 }

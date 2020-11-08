@@ -1,4 +1,6 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+
 import { makeStyles, withTheme } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -29,16 +31,19 @@ const useStyles = makeStyles({
 
 export default function CourseCard(props){
     const classes = useStyles();
+    const history = useHistory();
+
     const bull = <span className={classes.bullet}>•</span>;
     const { course } = props;
 
     const handleEnroll = () => {
         console.log("Enrolling in a class");
         console.log(course.title);
+        history.push(`/courses/${course.title}`);
     }
 
     return (
-        <li className='course-card'>
+        <li key={classes.title} className='course-card' onClick={handleEnroll}>
         <Card className={classes.root} variant="outlined">
           <CardContent>
             <Typography className={classes.title} color="textSecondary" gutterBottom>
@@ -48,9 +53,9 @@ export default function CourseCard(props){
               {course.description}
             </Typography>
           </CardContent>
-          <CardActions>
+          {/* <CardActions>
             <Button onClick={handleEnroll}size="small">Enroll</Button>
-          </CardActions>
+          </CardActions> */}
         </Card>
         </li>
       );

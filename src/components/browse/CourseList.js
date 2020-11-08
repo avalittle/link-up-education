@@ -7,7 +7,7 @@ export default function CourseList({ classes }) {
     return (
         <ul className='course-list'>
             {classes.map(course =>
-                <CourseCard course={course}/>
+                <CourseCard key={course.title} course={course}/>
             )
             }
         </ul>

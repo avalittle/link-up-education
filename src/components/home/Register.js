@@ -1,24 +1,20 @@
 import React, { useState } from "react";
+import { Auth, API } from 'aws-amplify';
+import { useHistory } from 'react-router-dom';
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
-import { blue } from "@material-ui/core/colors";
-import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import { Button } from "@material-ui/core";
+import { Button, useScrollTrigger } from "@material-ui/core";
+import Dropdown from '../global/Dropdown'
 
-const useStyles = makeStyles({
-  avatar: {
-    backgroundColor: blue[100],
-    color: blue[600],
-  },
-});
+const fakeSchools = ['Queens', 'Western'];
 
-export default function RegisterPopup(props) {
-  const classes = useStyles();
+export default function Register(props) {
   const { onClose, open } = props;
-  const [userInfo, setUserInfo] = useState({});
+  const history = useHistory();
+  const [firstClick, setFirstClick] = useState(true);
 
   const handleClose = () => {
     onClose();
@@ -31,24 +27,63 @@ export default function RegisterPopup(props) {
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
 
-
   const handleFirstNameChange = (e) => { setFirstName(e.target.value); };
   const handleLastNameChange = (e) => { setLastName(e.target.value); };
-  const handleSchoolChange = (e) => { setSchool(e.target.value); };
   const handleEmailChange = (e) => { setEmail(e.target.value); };
   const handlePasswordChange = (e) => { setPassword(e.target.value); };
   const handlePasswordConfirmChange = (e) => { setPasswordConfirm(e.target.value); };
 
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    console.log("Registering new user!");
+    let user = {
+      firstName, 
+      lastName, 
+      email, 
+      school, 
+      program: "Engineering",
+    };
 
-  const handleRegister = () => {
-    console.log("Registered!");
-    console.log(firstName);
-    console.log(lastName);
-    console.log(email);
-    console.log(password);
-    console.log(passwordConfirm);
+    try {
+      await Register({user});
+    } catch (e) {
+      console.log(e);
+    }
+    setFirstClick(false);
   };
 
+  const Register = user => {
+    const newUser = Auth.signUp({
+      username: email,
+      password: password,
+    });
+
+    console.log(newUser);
+
+    // Create user in user table
+    // return API.post("lab-partner", "/create-user", {
+    //   body: useScrollTrigger,
+    //   // requestContext: {
+    //   //   identity: {
+    //   //     cognitoIdentityId: 
+    //   //   }
+    //   // }
+    // })
+  }
+
+  const confirmRegister = async (e) => {
+    // e.preventDefault();
+    // try {
+    //   await Auth.confirmSignUp(email, fields.confirmationCode);
+    //   await Auth.signIn(fields.email, fields.password);
+  
+    //   userHasAuthenticated(true);
+    //   history.push("/");
+    // } catch (e) {
+    //   onError(e);
+    //   setIsLoading(false);
+    // }
+  }
   return (
     <Dialog
       onClose={handleClose}
@@ -74,12 +109,7 @@ export default function RegisterPopup(props) {
           />
         </ListItem>
         <ListItem>
-          <TextField
-            id="standard-basic"
-            label="School"
-            onChange={handleSchoolChange}
-            value={school}
-          />
+          <Dropdown data={fakeSchools} prompt={"Select a School"} handleChange={setSchool} />
         </ListItem>
         <ListItem>
           <TextField
@@ -91,7 +121,6 @@ export default function RegisterPopup(props) {
         </ListItem>
         <ListItem>
           <TextField
-
             id="standard-basic"
             label="Password"
             onChange={handlePasswordChange}
@@ -109,7 +138,11 @@ export default function RegisterPopup(props) {
           />
         </ListItem>
         <ListItem>
-          <Button onClick={handleRegister}>Login</Button>
+          { firstClick ? 
+            <Button onClick={handleRegister}>Register</Button>
+            :
+            <Button onClick={confirmRegister}>Confirm</Button>
+          }
         </ListItem>
       </List>
     </Dialog>

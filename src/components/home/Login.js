@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { Auth } from "aws-amplify";
+import { useAppContext } from '../../libs/contextLib';
+
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -9,6 +12,11 @@ import TextField from "@material-ui/core/TextField";
 import { Button } from "@material-ui/core";
 
 import "../../styles/login.css";
+<<<<<<< HEAD
+=======
+import { Button } from "@material-ui/core";
+import { useHistory } from 'react-router-dom';
+>>>>>>> 1993a5d6dc768b27db7a6afc93f56c6f88b35132
 
 const emails = ["username@gmail.com", "user02@gmail.com"];
 const useStyles = makeStyles({
@@ -18,9 +26,11 @@ const useStyles = makeStyles({
   },
 });
 
-export default function LoginPopup(props) {
+export default function Login(props) {
   const classes = useStyles();
   const { onClose, open } = props;
+  const { userHasAuthenticated } = useAppContext();
+  const history = useHistory();
 
   const handleClose = () => {
     onClose();
@@ -31,10 +41,16 @@ export default function LoginPopup(props) {
   const handleEmailChange = e => { setEmail(e.target.value); };
   const handlePasswordChange = e => { setPassword(e.target.value); }
 
-  const handleLogin = () => {
-    console.log("Loggin in!");
-    console.log(email);
-    console.log(password);
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      await Auth.signIn(email, password);
+      userHasAuthenticated(true);
+      history.push('/browse');
+    } catch (e) {
+      alert(e.message);
+    }
   }
 
   return (
