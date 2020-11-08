@@ -20,9 +20,9 @@ const Navigation = ({ auth }) => {
          </div>
          <div className="pages">
             <ul>
-               <li>
+               {/* <li>
                   <NavLink to="/about">About</NavLink>
-               </li>
+               </li> */}
                <li>
                   <NavLink to="/browse">Browse</NavLink>
                </li>

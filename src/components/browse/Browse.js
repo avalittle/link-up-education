@@ -2,51 +2,55 @@ import React, { useState, useEffect } from 'react';
 import { API } from 'aws-amplify';
 import CourseList from './CourseList';
 
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Dialog from "@material-ui/core/Dialog";
-import { blue } from "@material-ui/core/colors";
-import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import { Button } from "@material-ui/core";
 
 import '../../styles/browse.css';
 import Dropdown from '../global/Dropdown';
-import Textfield from '../global/Textfield'
 import CreateClass from './CreateClass';
-const fakeClasses = [
-    {
-        title: "ELEC278",
-        description: "Data Structures"
-    },
-    {
-        title: "ELEC221",
-        description: "Circuits",
-    },
-];
 
 const fakeDepartments = ['Engineering', 'School of Computing', 'Biology', 'Chemistry'];
 
 export default function Browse() {
-    const [classes, setClasses] = useState(fakeClasses);
+    const [classes, setClasses] = useState([]);
     const [department, setDepartment] = useState('')
     const [courseCode, setCourseCode] = useState('');
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
         // Get filtered classes
-        // function loadNote(){
-        //     return API.get("lab-partner", `/classes/${courseCode}`)
-        // }
-        // async function onLoad(){
-        //     try {
-        //         const note = loadNote();
-        //     } catch(e) {
-        //         console.log(e);
-        //     }
-        // }
-        // onLoad();
+        function loadCourses(){
+            return API.get("lab-partner",  '/classes');
+        }
+
+        function loadDepartment(department){
+            return API.get("lab-partner", `/classes/faculty/${department}`)
+        }
+
+        async function onLoad(){
+            try {
+                const classes = await loadCourses();
+                setClasses(classes);
+            } catch(e) {
+                console.log(e);
+            }
+        }
+
+        async function onDepartment(department){
+            try {
+                const classes = await loadDepartment(department);
+                setClasses(classes);
+            } catch (e) {
+                console.log(e);
+            }
+        }
+
+        console.log(department);
+        if (department !== ''){
+            onDepartment(department);
+        } else {
+            onLoad();
+        }
     }, [department])
 
     const handleClose = () => { 
@@ -56,10 +60,7 @@ export default function Browse() {
     const handleNewCourse = () => {
         setOpen(true);
     }
-    const handleDropdown = (value) => {
-        setDepartment(value);
-        // setClasses(getFilteredClasses(value))
-    }
+
     const handleCourseCode = e => {
         setCourseCode(e.target.value);
     }
@@ -71,27 +72,25 @@ export default function Browse() {
                 setClasses([]);
             })
         if (res){
-            console.log(res);
-            const x = {
-                title: res.classId,
-                description: res.name,
-            };
-            setClasses([x]);
+            setClasses([res]);
+        } else {
+            setClasses([]);
         }
     }
 
     return (
         <div className='browse-container'>
             {/* Title */}
-            <div>
-                <h1>Classlist Browser</h1>
+            <div style={{margin: 'auto', textAlign: 'center'}}>
+                <h1>Course Browser</h1>
             </div>
             {/* Filters */}
-            <div style={{ width: '100%' }}>
+            <div style={{ width: '50%', margin: 'auto', textAlign: 'center'}}>
                 {/* Department Dropdown */}
-                {/* <Dropdown data={fakeDepartments} prompt={"Select a Department"} /> */}
+                <Dropdown handleChange={setDepartment} data={fakeDepartments} prompt={"Select a Department"} />
                 {/* Course Number Input */}
-                <TextField onChange={handleCourseCode} value={courseCode}prompt={"Enter a Course Code"}></TextField>
+                <TextField onChange={handleCourseCode} value={courseCode} placeholder="Course Code"></TextField>
+                <br></br>
                 <Button onClick={handleSearch}>Search</Button>
             </div>
             {/* Display All Classes */}
@@ -99,7 +98,10 @@ export default function Browse() {
                 {classes.length > 0 ?
                     <CourseList classes={classes} />
                     :
-                    <Button onClick={handleNewCourse}>Add A Course!</Button>
+                    <div>
+                        <h5>Looks like that class isn't on here yet!</h5>
+                        <Button onClick={handleNewCourse}>Add A Course!</Button>
+                    </div>
                 }
             </div>
             <CreateClass open={open} onClose={handleClose}/>
