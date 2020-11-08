@@ -1,15 +1,14 @@
+import React, { useState } from 'react';
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import ListItemText from "@material-ui/core/ListItemText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
-import PersonIcon from "@material-ui/icons/Person";
-import AddIcon from "@material-ui/icons/Add";
 import { blue } from "@material-ui/core/colors";
 import { makeStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
 
 import "../../styles/login.css";
+import { Button } from "@material-ui/core";
 
 const emails = ["username@gmail.com", "user02@gmail.com"];
 const useStyles = makeStyles({
@@ -26,10 +25,17 @@ export default function LoginPopup(props) {
   const handleClose = () => {
     onClose();
   };
+  
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const handleEmailChange = e => { setEmail(e.target.value); };
+  const handlePasswordChange = e => { setPassword(e.target.value); }
 
-  const handleListItemClick = (value) => {
-    onClose();
-  };
+  const handleLogin = () => {
+    console.log("Loggin in!");
+    console.log(email);
+    console.log(password);
+  }
 
   return (
     <Dialog
@@ -38,23 +44,26 @@ export default function LoginPopup(props) {
       open={open}
     >
       <DialogTitle id="simple-dialog-title">Login</DialogTitle>
-      <List className='inputs'>
+      <List className="inputs">
         <ListItem>
-          <label>
-            Email:
-            <input type="text" email="email" />
-          </label>
+          <TextField 
+            id="standard-basic" 
+            label="Email" 
+            onChange={handleEmailChange}
+            value={email}
+          />
         </ListItem>
         <ListItem>
-          <label>
-            Password:
-            <input type="text" email="password" />
-          </label>
+        <TextField 
+            id="standard-basic" 
+            label="Password" 
+            onChange={handlePasswordChange}
+            value={password}
+          />
         </ListItem>
         <ListItem>
-        <input type="submit" value="Login" />
+          <Button onClick={handleLogin}>Login</Button>
         </ListItem>
-
       </List>
     </Dialog>
   );
