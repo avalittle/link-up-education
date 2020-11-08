@@ -1,0 +1,21 @@
+.container {
+    height: 100vh;
+}
+
+.title {
+    padding-top: 50px;
+    text-align: center;
+    margin: auto;
+}
+
+.title h2 {
+    font-weight: 400;
+}
+
+.login {
+    text-align: center;
+}
+
+.login br {
+    padding: 10px 10px 10px 10px;
+}
