@@ -52,10 +52,28 @@ functions:
     handler: createClass.main
     events:
       - http:
-        path: create-class
-        method: post
+          path: create-class
+          method: post
+          cors: true
+          authorizer: aws_iam
+
+  getClasses:
+    handler: getClasses.main
+    events:
+      - http:
+          path: classes/{id}
+          method: get
+          cors: true
+          authorizer: aws_iam
+
+  listClasses:
+    handler: listClasses.main
+    events:
+      - http:
+        path: classes/faculty/{id}
+        method: get
         cors: true
         authorizer: aws_iam
-
+      
 resources: 
   - ${file(resources/api-gateway-errors.yml)}
