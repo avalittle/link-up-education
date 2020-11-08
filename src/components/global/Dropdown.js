@@ -51,7 +51,7 @@ export default function Dropdown({ data, prompt, handleChange }) {
                 >
                     {
                         data.map(item =>
-                            <MenuItem value={item}>{item}</MenuItem>
+                            <MenuItem key={item} value={item}>{item}</MenuItem>
                         )
                     }
                 </Select>
