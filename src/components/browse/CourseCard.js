@@ -39,7 +39,7 @@ export default function CourseCard(props){
     const handleEnroll = () => {
         console.log("Enrolling in a class");
         console.log(course.title);
-        history.push(`/courses/${course.title}`);
+        history.push(`/class/${course.title}`);
     }
 
     return (

@@ -11,7 +11,7 @@ import { Button } from "@material-ui/core";
 import { useParams } from 'react-router-dom';
 import { API } from 'aws-amplify';
 import UserList from './Userlist';
-import Usercard from './Usercard';
+// import Usercard from './Usercard';
 
 const fakeUsers = [
     {
