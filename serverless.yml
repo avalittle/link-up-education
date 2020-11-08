@@ -51,7 +51,7 @@ functions:
           authorizer: aws_iam
 
   createClass: 
-    handler: createClass.main
+    handler: classes.create
     events:
       - http:
           path: create-class
@@ -59,8 +59,35 @@ functions:
           cors: true
           authorizer: aws_iam
 
-  getClasses:
-    handler: getClasses.main
+  getAllClasses:
+    handler: classes.get_all
+    events:
+      - http:
+          path: classes/
+          method: get
+          cors: true
+          authorizer: aws_iam
+
+  getAllFaculties:
+    handler: classes.get_all_faculties
+    events:
+      - http:
+          path: classes/get-faculties
+          method: get
+          cors: true
+          authorizer: aws_iam
+          
+  getClassesFaculty:
+    handler: classes.get_faculty
+    events:
+      - http:
+          path: classes/faculty/{id}
+          method: get
+          cors: true
+          authorizer: aws_iam
+          
+  getClassesID:
+    handler: classes.get_id
     events:
       - http:
           path: classes/{id}
@@ -68,14 +95,14 @@ functions:
           cors: true
           authorizer: aws_iam
 
-  listClasses:
-    handler: listClasses.main
+  createPost:
+    handler: classes.create_post
     events:
       - http:
-        path: classes/faculty/{id}
-        method: get
-        cors: true
-        authorizer: aws_iam
+          path: classes/{id}
+          method: put
+          cors: true
+          authorizer: aws_iamcr
       
 resources: 
   - ${file(resources/api-gateway-errors.yml)}

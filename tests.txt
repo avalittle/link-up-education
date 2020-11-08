@@ -1,0 +1,9 @@
+serverless invoke local --function createClass --path mocks/classes/create-event.json
+serverless invoke local --function getAllClasses
+serverless invoke local --function getAllFaculties
+serverless invoke local --function getClassesFaculty --path mocks/classes/get-faculty-success.json
+serverless invoke local --function getClassesFaculty --path mocks/classes/get-faculty-failure.json
+serverless invoke local --function getClassesID --path mocks/classes/get-id-success.json
+serverless invoke local --function getClassesID --path mocks/classes/get-id-failure.json
+serverless invoke local --function createPost --path mocks/classes/create-post-success.json
+serverless invoke local --function getClassesFaculty --path mocks/classes/get-faculty-success.json

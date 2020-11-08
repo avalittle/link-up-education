@@ -68,16 +68,28 @@
         "LogGroupName": "/aws/lambda/lab-partner-app-dev-createClass"
       }
     },
-    "GetClassesLogGroup": {
+    "GetAllClassesLogGroup": {
       "Type": "AWS::Logs::LogGroup",
       "Properties": {
-        "LogGroupName": "/aws/lambda/lab-partner-app-dev-getClasses"
+        "LogGroupName": "/aws/lambda/lab-partner-app-dev-getAllClasses"
       }
     },
-    "ListClassesLogGroup": {
+    "GetAllFacultiesLogGroup": {
       "Type": "AWS::Logs::LogGroup",
       "Properties": {
-        "LogGroupName": "/aws/lambda/lab-partner-app-dev-listClasses"
+        "LogGroupName": "/aws/lambda/lab-partner-app-dev-getAllFaculties"
+      }
+    },
+    "GetClassesFacultyLogGroup": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/lab-partner-app-dev-getClassesFaculty"
+      }
+    },
+    "GetClassesIDLogGroup": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/lab-partner-app-dev-getClassesID"
       }
     },
     "IamRoleLambdaExecution": {
@@ -177,7 +189,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/lab-partner-app/dev/1604827093975-2020-11-08T09:18:13.975Z/createUser.zip"
+          "S3Key": "serverless/lab-partner-app/dev/1604833167805-2020-11-08T10:59:27.805Z/createUser.zip"
         },
         "FunctionName": "lab-partner-app-dev-createUser",
         "Handler": "createUser.main",
@@ -218,10 +230,10 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/lab-partner-app/dev/1604827093975-2020-11-08T09:18:13.975Z/createClass.zip"
+          "S3Key": "serverless/lab-partner-app/dev/1604833167805-2020-11-08T10:59:27.805Z/createClass.zip"
         },
         "FunctionName": "lab-partner-app-dev-createClass",
-        "Handler": "createClass.main",
+        "Handler": "classes.create",
         "MemorySize": 1024,
         "Role": {
           "Fn::GetAtt": [
@@ -242,27 +254,27 @@
         "CreateClassLogGroup"
       ]
     },
-    "CreateClassLambdaVersionv0JgsalW0FNAi6UdX7d4wEotXZfrlA6WdW8grXchuA": {
+    "CreateClassLambdaVersion2X4hi06AZRm2aTZAt0i5sl6b2qImj94gyUF1h36l0U": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "CreateClassLambdaFunction"
         },
-        "CodeSha256": "euuff6gQa7BOEJI1p8if/MHB3yslFMr7/B72Cs/k7f4="
+        "CodeSha256": "9aq3ifSx/+XzgJZKfJAokbiTo6i2RlzYsrJmc+CngD4="
       }
     },
-    "GetClassesLambdaFunction": {
+    "GetAllClassesLambdaFunction": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/lab-partner-app/dev/1604827093975-2020-11-08T09:18:13.975Z/getClasses.zip"
+          "S3Key": "serverless/lab-partner-app/dev/1604833167805-2020-11-08T10:59:27.805Z/getAllClasses.zip"
         },
-        "FunctionName": "lab-partner-app-dev-getClasses",
-        "Handler": "getClasses.main",
+        "FunctionName": "lab-partner-app-dev-getAllClasses",
+        "Handler": "classes.get_all",
         "MemorySize": 1024,
         "Role": {
           "Fn::GetAtt": [
@@ -280,30 +292,30 @@
         }
       },
       "DependsOn": [
-        "GetClassesLogGroup"
+        "GetAllClassesLogGroup"
       ]
     },
-    "GetClassesLambdaVersionuR34KLRq8y0LcZmGJzvLfiJpqRtqUa1qaLTadH1POQ": {
+    "GetAllClassesLambdaVersionJGf7hquaAOho4MI064iE4k3qI7ejW9oeojjqyqBaao": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
-          "Ref": "GetClassesLambdaFunction"
+          "Ref": "GetAllClassesLambdaFunction"
         },
-        "CodeSha256": "LC/YzZ1ltb6kawMFYLdsIQghmOthrBMPaEXyuXvsaI8="
+        "CodeSha256": "9aq3ifSx/+XzgJZKfJAokbiTo6i2RlzYsrJmc+CngD4="
       }
     },
-    "ListClassesLambdaFunction": {
+    "GetAllFacultiesLambdaFunction": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/lab-partner-app/dev/1604827093975-2020-11-08T09:18:13.975Z/listClasses.zip"
+          "S3Key": "serverless/lab-partner-app/dev/1604833167805-2020-11-08T10:59:27.805Z/getAllFaculties.zip"
         },
-        "FunctionName": "lab-partner-app-dev-listClasses",
-        "Handler": "listClasses.main",
+        "FunctionName": "lab-partner-app-dev-getAllFaculties",
+        "Handler": "classes.get_all_faculties",
         "MemorySize": 1024,
         "Role": {
           "Fn::GetAtt": [
@@ -321,17 +333,99 @@
         }
       },
       "DependsOn": [
-        "ListClassesLogGroup"
+        "GetAllFacultiesLogGroup"
       ]
     },
-    "ListClassesLambdaVersionGUlJOgYSdBAvtkYQDQxmXRzO2Iq5z6tFKafcbSJjTQ": {
+    "GetAllFacultiesLambdaVersioni3pB7NOCRGPLGJBS8lVFMX1JWDuTmSqfTOSiY9BCiSY": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
-          "Ref": "ListClassesLambdaFunction"
+          "Ref": "GetAllFacultiesLambdaFunction"
         },
-        "CodeSha256": "bxAh3QtdQr5bwAfc6ys2izUktT0mtXvfC6UwosSGZSs="
+        "CodeSha256": "9aq3ifSx/+XzgJZKfJAokbiTo6i2RlzYsrJmc+CngD4="
+      }
+    },
+    "GetClassesFacultyLambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "ServerlessDeploymentBucket"
+          },
+          "S3Key": "serverless/lab-partner-app/dev/1604833167805-2020-11-08T10:59:27.805Z/getClassesFaculty.zip"
+        },
+        "FunctionName": "lab-partner-app-dev-getClassesFaculty",
+        "Handler": "classes.get_faculty",
+        "MemorySize": 1024,
+        "Role": {
+          "Fn::GetAtt": [
+            "IamRoleLambdaExecution",
+            "Arn"
+          ]
+        },
+        "Runtime": "nodejs10.x",
+        "Timeout": 6,
+        "Environment": {
+          "Variables": {
+            "userTable": "labPartner-users",
+            "classTable": "labPartner-classes"
+          }
+        }
+      },
+      "DependsOn": [
+        "GetClassesFacultyLogGroup"
+      ]
+    },
+    "GetClassesFacultyLambdaVersion1yIqHq3eEK4xiBH7nL6FbO7uyg4yrE2pd3sFP98": {
+      "Type": "AWS::Lambda::Version",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "GetClassesFacultyLambdaFunction"
+        },
+        "CodeSha256": "9aq3ifSx/+XzgJZKfJAokbiTo6i2RlzYsrJmc+CngD4="
+      }
+    },
+    "GetClassesIDLambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "ServerlessDeploymentBucket"
+          },
+          "S3Key": "serverless/lab-partner-app/dev/1604833167805-2020-11-08T10:59:27.805Z/getClassesID.zip"
+        },
+        "FunctionName": "lab-partner-app-dev-getClassesID",
+        "Handler": "classes.get_id",
+        "MemorySize": 1024,
+        "Role": {
+          "Fn::GetAtt": [
+            "IamRoleLambdaExecution",
+            "Arn"
+          ]
+        },
+        "Runtime": "nodejs10.x",
+        "Timeout": 6,
+        "Environment": {
+          "Variables": {
+            "userTable": "labPartner-users",
+            "classTable": "labPartner-classes"
+          }
+        }
+      },
+      "DependsOn": [
+        "GetClassesIDLogGroup"
+      ]
+    },
+    "GetClassesIDLambdaVersionSBwkRCeTqyxOBhmnYZhQisZDYyFe2AGU1RiwfnRDMY": {
+      "Type": "AWS::Lambda::Version",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "GetClassesIDLambdaFunction"
+        },
+        "CodeSha256": "9aq3ifSx/+XzgJZKfJAokbiTo6i2RlzYsrJmc+CngD4="
       }
     },
     "ApiGatewayRestApi": {
@@ -386,6 +480,42 @@
           ]
         },
         "PathPart": "classes",
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        }
+      }
+    },
+    "ApiGatewayResourceClassesGetDashfaculties": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Ref": "ApiGatewayResourceClasses"
+        },
+        "PathPart": "get-faculties",
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        }
+      }
+    },
+    "ApiGatewayResourceClassesFaculty": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Ref": "ApiGatewayResourceClasses"
+        },
+        "PathPart": "faculty",
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        }
+      }
+    },
+    "ApiGatewayResourceClassesFacultyIdVar": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Ref": "ApiGatewayResourceClassesFaculty"
+        },
+        "PathPart": "{id}",
         "RestApiId": {
           "Ref": "ApiGatewayRestApi"
         }
@@ -487,6 +617,141 @@
         },
         "ResourceId": {
           "Ref": "ApiGatewayResourceCreateDashclass"
+        },
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        }
+      }
+    },
+    "ApiGatewayMethodClassesOptions": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "AuthorizationType": "NONE",
+        "HttpMethod": "OPTIONS",
+        "MethodResponses": [
+          {
+            "StatusCode": "200",
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Methods": true
+            },
+            "ResponseModels": {}
+          }
+        ],
+        "RequestParameters": {},
+        "Integration": {
+          "Type": "MOCK",
+          "RequestTemplates": {
+            "application/json": "{statusCode:200}"
+          },
+          "ContentHandling": "CONVERT_TO_TEXT",
+          "IntegrationResponses": [
+            {
+              "StatusCode": "200",
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET'"
+              },
+              "ResponseTemplates": {
+                "application/json": "#set($origin = $input.params(\"Origin\"))\n#if($origin == \"\") #set($origin = $input.params(\"origin\")) #end\n#if($origin.matches(\".+\")) #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin) #end"
+              }
+            }
+          ]
+        },
+        "ResourceId": {
+          "Ref": "ApiGatewayResourceClasses"
+        },
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        }
+      }
+    },
+    "ApiGatewayMethodClassesGetDashfacultiesOptions": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "AuthorizationType": "NONE",
+        "HttpMethod": "OPTIONS",
+        "MethodResponses": [
+          {
+            "StatusCode": "200",
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Methods": true
+            },
+            "ResponseModels": {}
+          }
+        ],
+        "RequestParameters": {},
+        "Integration": {
+          "Type": "MOCK",
+          "RequestTemplates": {
+            "application/json": "{statusCode:200}"
+          },
+          "ContentHandling": "CONVERT_TO_TEXT",
+          "IntegrationResponses": [
+            {
+              "StatusCode": "200",
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET'"
+              },
+              "ResponseTemplates": {
+                "application/json": "#set($origin = $input.params(\"Origin\"))\n#if($origin == \"\") #set($origin = $input.params(\"origin\")) #end\n#if($origin.matches(\".+\")) #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin) #end"
+              }
+            }
+          ]
+        },
+        "ResourceId": {
+          "Ref": "ApiGatewayResourceClassesGetDashfaculties"
+        },
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        }
+      }
+    },
+    "ApiGatewayMethodClassesFacultyIdVarOptions": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "AuthorizationType": "NONE",
+        "HttpMethod": "OPTIONS",
+        "MethodResponses": [
+          {
+            "StatusCode": "200",
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Methods": true
+            },
+            "ResponseModels": {}
+          }
+        ],
+        "RequestParameters": {},
+        "Integration": {
+          "Type": "MOCK",
+          "RequestTemplates": {
+            "application/json": "{statusCode:200}"
+          },
+          "ContentHandling": "CONVERT_TO_TEXT",
+          "IntegrationResponses": [
+            {
+              "StatusCode": "200",
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET'"
+              },
+              "ResponseTemplates": {
+                "application/json": "#set($origin = $input.params(\"Origin\"))\n#if($origin == \"\") #set($origin = $input.params(\"origin\")) #end\n#if($origin.matches(\".+\")) #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin) #end"
+              }
+            }
+          ]
+        },
+        "ResourceId": {
+          "Ref": "ApiGatewayResourceClassesFacultyIdVar"
         },
         "RestApiId": {
           "Ref": "ApiGatewayRestApi"
@@ -624,6 +889,135 @@
         "MethodResponses": []
       }
     },
+    "ApiGatewayMethodClassesGet": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "GET",
+        "RequestParameters": {},
+        "ResourceId": {
+          "Ref": "ApiGatewayResourceClasses"
+        },
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        },
+        "ApiKeyRequired": false,
+        "AuthorizationType": "AWS_IAM",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "GetAllClassesLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "MethodResponses": []
+      }
+    },
+    "ApiGatewayMethodClassesGetDashfacultiesGet": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "GET",
+        "RequestParameters": {},
+        "ResourceId": {
+          "Ref": "ApiGatewayResourceClassesGetDashfaculties"
+        },
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        },
+        "ApiKeyRequired": false,
+        "AuthorizationType": "AWS_IAM",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "GetAllFacultiesLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "MethodResponses": []
+      }
+    },
+    "ApiGatewayMethodClassesFacultyIdVarGet": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "GET",
+        "RequestParameters": {},
+        "ResourceId": {
+          "Ref": "ApiGatewayResourceClassesFacultyIdVar"
+        },
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        },
+        "ApiKeyRequired": false,
+        "AuthorizationType": "AWS_IAM",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "GetClassesFacultyLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "MethodResponses": []
+      }
+    },
     "ApiGatewayMethodClassesIdVarGet": {
       "Type": "AWS::ApiGateway::Method",
       "Properties": {
@@ -655,7 +1049,7 @@
                 ":lambda:path/2015-03-31/functions/",
                 {
                   "Fn::GetAtt": [
-                    "GetClassesLambdaFunction",
+                    "GetClassesIDLambdaFunction",
                     "Arn"
                   ]
                 },
@@ -667,7 +1061,7 @@
         "MethodResponses": []
       }
     },
-    "ApiGatewayDeployment1604827085787": {
+    "ApiGatewayDeployment1604833161043": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -678,9 +1072,15 @@
       "DependsOn": [
         "ApiGatewayMethodCreateDashuserOptions",
         "ApiGatewayMethodCreateDashclassOptions",
+        "ApiGatewayMethodClassesOptions",
+        "ApiGatewayMethodClassesGetDashfacultiesOptions",
+        "ApiGatewayMethodClassesFacultyIdVarOptions",
         "ApiGatewayMethodClassesIdVarOptions",
         "ApiGatewayMethodCreateDashuserPost",
         "ApiGatewayMethodCreateDashclassPost",
+        "ApiGatewayMethodClassesGet",
+        "ApiGatewayMethodClassesGetDashfacultiesGet",
+        "ApiGatewayMethodClassesFacultyIdVarGet",
         "ApiGatewayMethodClassesIdVarGet"
       ]
     },
@@ -758,12 +1158,123 @@
         }
       }
     },
-    "GetClassesLambdaPermissionApiGateway": {
+    "GetAllClassesLambdaPermissionApiGateway": {
       "Type": "AWS::Lambda::Permission",
       "Properties": {
         "FunctionName": {
           "Fn::GetAtt": [
-            "GetClassesLambdaFunction",
+            "GetAllClassesLambdaFunction",
+            "Arn"
+          ]
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "/*/*"
+            ]
+          ]
+        }
+      }
+    },
+    "GetAllFacultiesLambdaPermissionApiGateway": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "GetAllFacultiesLambdaFunction",
+            "Arn"
+          ]
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "/*/*"
+            ]
+          ]
+        }
+      }
+    },
+    "GetClassesFacultyLambdaPermissionApiGateway": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "GetClassesFacultyLambdaFunction",
+            "Arn"
+          ]
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "/*/*"
+            ]
+          ]
+        }
+      }
+    },
+    "GetClassesIDLambdaPermissionApiGateway": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "GetClassesIDLambdaFunction",
             "Arn"
           ]
         },
@@ -837,19 +1348,31 @@
     "CreateClassLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "CreateClassLambdaVersionv0JgsalW0FNAi6UdX7d4wEotXZfrlA6WdW8grXchuA"
+        "Ref": "CreateClassLambdaVersion2X4hi06AZRm2aTZAt0i5sl6b2qImj94gyUF1h36l0U"
       }
     },
-    "GetClassesLambdaFunctionQualifiedArn": {
+    "GetAllClassesLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "GetClassesLambdaVersionuR34KLRq8y0LcZmGJzvLfiJpqRtqUa1qaLTadH1POQ"
+        "Ref": "GetAllClassesLambdaVersionJGf7hquaAOho4MI064iE4k3qI7ejW9oeojjqyqBaao"
       }
     },
-    "ListClassesLambdaFunctionQualifiedArn": {
+    "GetAllFacultiesLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "ListClassesLambdaVersionGUlJOgYSdBAvtkYQDQxmXRzO2Iq5z6tFKafcbSJjTQ"
+        "Ref": "GetAllFacultiesLambdaVersioni3pB7NOCRGPLGJBS8lVFMX1JWDuTmSqfTOSiY9BCiSY"
+      }
+    },
+    "GetClassesFacultyLambdaFunctionQualifiedArn": {
+      "Description": "Current Lambda function version",
+      "Value": {
+        "Ref": "GetClassesFacultyLambdaVersion1yIqHq3eEK4xiBH7nL6FbO7uyg4yrE2pd3sFP98"
+      }
+    },
+    "GetClassesIDLambdaFunctionQualifiedArn": {
+      "Description": "Current Lambda function version",
+      "Value": {
+        "Ref": "GetClassesIDLambdaVersionSBwkRCeTqyxOBhmnYZhQisZDYyFe2AGU1RiwfnRDMY"
       }
     },
     "ServiceEndpoint": {
