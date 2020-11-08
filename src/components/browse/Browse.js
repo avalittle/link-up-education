@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import CourseList from './CourseList';
 
 import '../../styles/browse.css';
-
+import Dropdown from '../global/Dropdown';
 const fakeClasses = [
     {
         title: "ELEC278",
@@ -13,6 +13,8 @@ const fakeClasses = [
         description: "Circuits",
     },
 ];
+
+const fakeDepartments = ['Engineering', 'School of Computing', 'Biology', 'Chemistry'];
 
 export default function Browse() {
     const [classes, setClasses] = useState(fakeClasses);
@@ -30,9 +32,9 @@ export default function Browse() {
                 <h1>Classlist Browser</h1>
             </div>
             {/* Filters */}
-            <div>
+            <div style={{width:'100%'}}>
                 {/* Department Dropdown */}
-                <div>Dropdown here</div>
+                <Dropdown data={fakeDepartments} prompt={"Select a Department"}/>
                 {/* Course Number Input */}
                 <div>Input Course Number</div>
             </div>

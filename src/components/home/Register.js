@@ -7,6 +7,7 @@ import { blue } from "@material-ui/core/colors";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import { Button } from "@material-ui/core";
+import Dropdown from '../global/Dropdown'
 
 const useStyles = makeStyles({
   avatar: {
@@ -14,6 +15,8 @@ const useStyles = makeStyles({
     color: blue[600],
   },
 });
+
+const fakeSchools = ['Queen\'s University', 'Western University', 'University of Ottawa', 'Dalhousie University'];
 
 export default function RegisterPopup(props) {
   const classes = useStyles();
@@ -74,12 +77,12 @@ export default function RegisterPopup(props) {
           />
         </ListItem>
         <ListItem>
-          <TextField
+          <Dropdown data={fakeSchools} prompt={"Select a School"}>
             id="standard-basic"
             label="School"
             onChange={handleSchoolChange}
             value={school}
-          />
+          </Dropdown>
         </ListItem>
         <ListItem>
           <TextField
