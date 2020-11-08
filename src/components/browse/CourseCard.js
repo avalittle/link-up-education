@@ -12,8 +12,8 @@ import '../../styles/browse.css';
 
 const useStyles = makeStyles({
     root: {
-      'background-color': '#9FF4FE',
-      color: '#C4C4C4',
+      'background-color': '#C4C4C4',
+      color: '#FFFFFF',
     },
     bullet: {
       display: 'inline-block',
@@ -21,8 +21,8 @@ const useStyles = makeStyles({
       transform: 'scale(0.8)',
     },
     title: {
-      fontSize: 14,
-      color: '#FFFFFF',
+      fontSize: 24,
+      color: '#000000',
     },
     pos: {
       marginBottom: 12,
@@ -37,9 +37,7 @@ export default function CourseCard(props){
     const { course } = props;
 
     const handleEnroll = () => {
-        console.log("Enrolling in a class");
-        console.log(course.title);
-        history.push(`/class/${course.title}`);
+        history.push(`/courses/${course.classId}`);
     }
 
     return (
@@ -47,10 +45,13 @@ export default function CourseCard(props){
         <Card className={classes.root} variant="outlined">
           <CardContent>
             <Typography className={classes.title} color="textSecondary" gutterBottom>
-              {course.title}
+              {course.classId}
+            </Typography>
+            <Typography variant="h6" component="h2">
+              {course.faculty}
             </Typography>
             <Typography variant="h5" component="h2">
-              {course.description}
+              {course.name}
             </Typography>
           </CardContent>
           {/* <CardActions>
