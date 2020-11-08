@@ -15,7 +15,7 @@ import '../../styles/browse.css';
 import Dropdown from '../global/Dropdown';
 import Textfield from '../global/Textfield'
 import CreateClass from './CreateClass';
-const fakeClasses = [];/*[
+const fakeClasses = [
     {
         title: "ELEC278",
         description: "Data Structures"
@@ -24,7 +24,7 @@ const fakeClasses = [];/*[
         title: "ELEC221",
         description: "Circuits",
     },
-];*/
+];
 
 const fakeDepartments = ['Engineering', 'School of Computing', 'Biology', 'Chemistry'];
 
@@ -36,17 +36,17 @@ export default function Browse() {
 
     useEffect(() => {
         // Get filtered classes
-        function loadNote(){
-            return API.get("lab-partner", `/classes/${courseCode}`)
-        }
-        async function onLoad(){
-            try {
-                const note = loadNote();
-            } catch(e) {
-                console.log(e);
-            }
-        }
-        onLoad();
+        // function loadNote(){
+        //     return API.get("lab-partner", `/classes/${courseCode}`)
+        // }
+        // async function onLoad(){
+        //     try {
+        //         const note = loadNote();
+        //     } catch(e) {
+        //         console.log(e);
+        //     }
+        // }
+        // onLoad();
     }, [department])
 
     const handleClose = () => { 
@@ -60,7 +60,7 @@ export default function Browse() {
         setDepartment(value);
         // setClasses(getFilteredClasses(value))
     }
-    const handleCourseCode = (e) => {
+    const handleCourseCode = e => {
         setCourseCode(e.target.value);
     }
 
@@ -70,10 +70,15 @@ export default function Browse() {
                 console.log(err);
                 setClasses([]);
             })
-        console.log(res);
+        if (res){
+            console.log(res);
+            const x = {
+                title: res.classId,
+                description: res.name,
+            };
+            setClasses([x]);
+        }
     }
-
-
 
     return (
         <div className='browse-container'>
@@ -86,7 +91,8 @@ export default function Browse() {
                 {/* Department Dropdown */}
                 {/* <Dropdown data={fakeDepartments} prompt={"Select a Department"} /> */}
                 {/* Course Number Input */}
-                {/* <Textfield prompt={"Enter a Course Code"}></Textfield> */}
+                <TextField onChange={handleCourseCode} value={courseCode}prompt={"Enter a Course Code"}></TextField>
+                <Button onClick={handleSearch}>Search</Button>
             </div>
             {/* Display All Classes */}
             <div>

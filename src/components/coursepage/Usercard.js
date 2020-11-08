@@ -29,33 +29,35 @@ const useStyles = makeStyles({
     },
   });
 
-export default function CourseCard(props){
-    const classes = useStyles();
+export default function UserCard(props){
+    const users = useStyles();
     const history = useHistory();
 
-    const bull = <span className={classes.bullet}>•</span>;
-    const { course } = props;
+    const bull = <span className={users.title}>•</span>;
+    const { user } = props;
 
     const handleEnroll = () => {
-        console.log("Enrolling in a class");
-        console.log(course.title);
-        history.push(`/class/${course.title}`);
+        history.users(`/users/${users.title}`);
     }
 
+
     return (
-        <li key={classes.title} className='course-card' onClick={handleEnroll}>
-        <Card className={classes.root} variant="outlined">
+        <li key={users.title} className='user-card'>
+        <Card className={users.root} variant="outlined">
           <CardContent>
-            <Typography className={classes.title} color="textSecondary" gutterBottom>
-              {course.title}
+            <Typography className={users.title} color="textSecondary" gutterBottom>
+              {user.name}
             </Typography>
             <Typography variant="h5" component="h2">
-              {course.description}
+              {user.description}
+            </Typography>
+            <Typography variant="h5" component="h2">
+              {user.assignment}
             </Typography>
           </CardContent>
-          {/* <CardActions>
-            <Button onClick={handleEnroll}size="small">Enroll</Button>
-          </CardActions> */}
+          { <CardActions>
+            <Button onClick={handleEnroll}size="small">Post Ad</Button>
+          </CardActions> }
         </Card>
         </li>
       );
