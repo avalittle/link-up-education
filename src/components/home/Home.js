@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 // Import Components
 import Button from '@material-ui/core/Button';
-import LoginPopup from './Login';
-import RegisterPopup from './Register';
+import Login from './Login';
+import Register from './Register';
 
 // Import styling
 import '../../styles/home.css'

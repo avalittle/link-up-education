@@ -31,7 +31,7 @@ export default function Login(props) {
   const handleClose = () => {
     onClose();
   };
-  
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const handleEmailChange = e => { setEmail(e.target.value); };
@@ -58,19 +58,20 @@ export default function Login(props) {
       <DialogTitle id="simple-dialog-title">Login</DialogTitle>
       <List className="inputs">
         <ListItem>
-          <TextField 
-            id="standard-basic" 
-            label="Email" 
+          <TextField
+            id="standard-basic"
+            label="Email"
             onChange={handleEmailChange}
             value={email}
           />
         </ListItem>
         <ListItem>
-        <TextField 
-            id="standard-basic" 
-            label="Password" 
+          <TextField
+            id="standard-basic"
+            label="Password"
             onChange={handlePasswordChange}
             value={password}
+            type="password"
           />
         </ListItem>
         <ListItem>
