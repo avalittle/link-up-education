@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import { API } from 'aws-amplify';
 
 import { Button } from "@material-ui/core";
 import { useParams } from 'react-router-dom';
@@ -22,19 +22,26 @@ const fakeUsers = [
 export default function Class() {
     const { id } = useParams();
     const [createAdOpen, setCreateAdOpen] = useState(false);
-    const [students, setStudents] = useState(fakeUsers);
+    const [students, setStudents] = useState([]);
 
     useEffect(() => {
-        function getStudents(){
+        function getCourse(){
             // GET Request to API
             console.log("Making a request to our users database")
-            // return API.get('lab-partner', `/users/${id}`)
+            return API.get('lab-partner', `/classes/${id}`)
         }
         async function onLoad(){
             console.log(`Loading users in class ${id}`);
             try {
-                const loadedStudents = getStudents();
-                // setStudents(loadedStudents);
+                const loadedStudents = await getCourse();
+                if (!('posts' in loadedStudents)) {
+                    console.log("No posts!");
+                    setStudents([]);
+                } else {
+                    console.log("Posts exist");
+                    console.log(loadedStudents.posts);
+                    setStudents(loadedStudents.posts);
+                }
             } catch (e) {
                 console.log(e);
             }
@@ -54,18 +61,18 @@ export default function Class() {
         <div className='course-page'>
             {/* Title */}
             <div>
-                <h1>{id.toUpperCase()}</h1>
+                <h1>Class | {id.toUpperCase()}</h1>
             </div>
-            <Button onClick={handleAdCreate}>Create Ad</Button>
+            <Button onClick={handleAdCreate}>Create New Post</Button>
             {/* Filters */}
             <div style={{ width: '100%' }}>
             </div>
             <div>
                  { students.length > 0 &&  
-                    <UserList users={fakeUsers} /> 
+                    <UserList users={students} /> 
                  }
             </div> 
-            <CreatePost class={id} open={createAdOpen} onClose={handleClose}/>
+            <CreatePost course={id} open={createAdOpen} onClose={handleClose}/>
         </div >
     )
 } 

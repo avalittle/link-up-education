@@ -16,8 +16,8 @@ import "../../styles/login.css";
 
 export default function CreatePost(props) {
   const { course, onClose, open } = props;
+  const history = useHistory();
   const { userHasAuthenticated } = useAppContext();
-
   const handleClose = () => {
     onClose();
   };
@@ -31,56 +31,62 @@ export default function CreatePost(props) {
 
   const handleNewCourse = async (e) => {
     e.preventDefault();
-    createPost({
-        course, 
+    let body = {
+      'post': {
         name,
         assignment,
         description
-    })
-  }
+      }
+    }
+  
+  createPost(body);
+  onClose();
+  history.go(0);
+}
 
-  function createPost(course){
-      return API.post("lab-partner", "/create-post", {
-          body: course
-      })
-  }
+function createPost(body) {
+  console.log(course);
+  return API.put("lab-partner", `/classes/${course}`, {
+    body: body
+  })
+}
 
-  return (
-    <Dialog
-      onClose={handleClose}
-      aria-labelledby="simple-dialog-title"
-      open={open}
-    >
-      <DialogTitle id="simple-dialog-title">Post Ad</DialogTitle>
-      <List className="inputs">
-        <ListItem>
-          <TextField
-            id="standard-basic"
-            label="Name"
-            onChange={handleNameChange}
-            value={name}
-          />
-        </ListItem>
-        <ListItem>
-          <TextField
-            id="standard-basic"
-            label="Assignment"
-            onChange={handleAssignmentChange}
-            value={assignment}
-          />
-        </ListItem>
-        <ListItem>
-          <TextField
-            id="standard-basic"
-            label="Description"
-            onChange={handleDescriptionChange}
-            value={description}
-          />
-        </ListItem>
-        <ListItem>
-          <Button onClick={handleNewCourse}>Post Ad</Button>
-        </ListItem>
-      </List>
-    </Dialog>
-  );
+return (
+  <Dialog
+    onClose={handleClose}
+    aria-labelledby="simple-dialog-title"
+    open={open}
+  >
+    <DialogTitle id="simple-dialog-title">Post Ad</DialogTitle>
+    <List className="inputs">
+      <ListItem>
+        <TextField
+          id="standard-basic"
+          label="Name"
+          onChange={handleNameChange}
+          value={name}
+        />
+      </ListItem>
+      <ListItem>
+        <TextField
+          id="standard-basic"
+          label="Assignment"
+          onChange={handleAssignmentChange}
+          value={assignment}
+        />
+      </ListItem>
+      <ListItem>
+        <TextField
+          id="standard-basic"
+          label="Description"
+          onChange={handleDescriptionChange}
+          value={description}
+        />
+      </ListItem>
+      <ListItem>
+        <Button onClick={handleNewCourse}>Post Ad</Button>
+      </ListItem>
+    </List>
+  </Dialog>
+);
 }

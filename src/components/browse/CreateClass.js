@@ -15,14 +15,15 @@ import { Button } from "@material-ui/core";
 import "../../styles/login.css";
 
 export default function CreateClass(props) {
-  const { onClose, open } = props;
+  const { course, onClose, open } = props;
+  const history = useHistory();
   const { userHasAuthenticated } = useAppContext();
 
   const handleClose = () => {
     onClose();
   };
 
-  const [code, setCode] = useState('');
+  const [code, setCode] = useState(course);
   const [name, setName] = useState('');
   const [faculty, setFaculty] = useState('');
   const handleCodeChange = e => { setCode(e.target.value); };
@@ -36,6 +37,9 @@ export default function CreateClass(props) {
         name: name,
         faculty: faculty,
     })
+    window.alert('Success! Thank you for adding a new course')
+    onClose();
+    history.push(`/class/${code}`)
   }
 
   function createCourse(course){

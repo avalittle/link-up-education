@@ -14,6 +14,10 @@ const useStyles = makeStyles({
     root: {
       'background-color': '#C4C4C4',
       color: '#FFFFFF',
+      '&hover': {
+        'border-thickness': '2px',
+        'border-color': 'black',
+      },
     },
     bullet: {
       display: 'inline-block',
