@@ -16,21 +16,21 @@ provider:
   stage: dev
   region: ca-central-1
 
-environment:
-  userTable: process.env.userTable
-  classTable: process.env.classTable
+  environment:
+    userTable: process.env.userTable
+    classTable: process.env.classTable
 
-iamRoleStatements:
-  - Effect: Allow
-    Action:
-      - dynamodb:Scan
-      - dynamodb:Query
-      - dynamodb:GetItem
-      - dynamodb:PutItem
-      - dynamodb:UpdateItem
-      - dynamodb:DeleteItem
-      - dynamodb:DescribeTable
-    Resource: "arn:aws:dynamodb:us-east-1:*:*"
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Scan
+        - dynamodb:Query
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+        - dynamodb:DescribeTable
+      Resource: "arn:aws:dynamodb:us-east-1:*:*"
 
 functions:
   # Defines an HTTP API endpoint that calls the main function in create.js
@@ -56,3 +56,6 @@ functions:
         method: post
         cors: true
         authorizer: aws_iam
+
+resources: 
+  - ${file(resources/api-gateway-errors.yml)}
