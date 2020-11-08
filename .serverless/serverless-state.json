@@ -25,7 +25,7 @@
             "dynamodb:DeleteItem",
             "dynamodb:DescribeTable"
           ],
-          "Resource": "arn:aws:dynamodb:us-east-1:*:*"
+          "Resource": "arn:aws:dynamodb:ca-central-1:*:*"
         }
       ],
       "variableSyntax": "\\${([^{}:]+?(?:\\(|:)(?:[^:{}][^{}]*?)?)}",
@@ -199,7 +199,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/lab-partner-app/dev/1604825444301-2020-11-08T08:50:44.301Z/createUser.zip"
+                "S3Key": "serverless/lab-partner-app/dev/1604827093975-2020-11-08T09:18:13.975Z/createUser.zip"
               },
               "FunctionName": "lab-partner-app-dev-createUser",
               "Handler": "createUser.main",
@@ -240,7 +240,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/lab-partner-app/dev/1604825444301-2020-11-08T08:50:44.301Z/createClass.zip"
+                "S3Key": "serverless/lab-partner-app/dev/1604827093975-2020-11-08T09:18:13.975Z/createClass.zip"
               },
               "FunctionName": "lab-partner-app-dev-createClass",
               "Handler": "createClass.main",
@@ -281,7 +281,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/lab-partner-app/dev/1604825444301-2020-11-08T08:50:44.301Z/getClasses.zip"
+                "S3Key": "serverless/lab-partner-app/dev/1604827093975-2020-11-08T09:18:13.975Z/getClasses.zip"
               },
               "FunctionName": "lab-partner-app-dev-getClasses",
               "Handler": "getClasses.main",
@@ -322,7 +322,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/lab-partner-app/dev/1604825444301-2020-11-08T08:50:44.301Z/listClasses.zip"
+                "S3Key": "serverless/lab-partner-app/dev/1604827093975-2020-11-08T09:18:13.975Z/listClasses.zip"
               },
               "FunctionName": "lab-partner-app-dev-listClasses",
               "Handler": "listClasses.main",
@@ -689,7 +689,7 @@
               "MethodResponses": []
             }
           },
-          "ApiGatewayDeployment1604825435499": {
+          "ApiGatewayDeployment1604827085787": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -1186,7 +1186,7 @@
       },
       "package": {
         "individually": true,
-        "artifactDirectoryName": "serverless/lab-partner-app/dev/1604825444301-2020-11-08T08:50:44.301Z"
+        "artifactDirectoryName": "serverless/lab-partner-app/dev/1604827093975-2020-11-08T09:18:13.975Z"
       },
       "plugins": {
         "$ref": "$[\"service\"][\"plugins\"]"
@@ -1205,7 +1205,7 @@
   },
   "package": {
     "individually": true,
-    "artifactDirectoryName": "serverless/lab-partner-app/dev/1604825444301-2020-11-08T08:50:44.301Z",
+    "artifactDirectoryName": "serverless/lab-partner-app/dev/1604827093975-2020-11-08T09:18:13.975Z",
     "artifact": ""
   }
 }
