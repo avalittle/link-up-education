@@ -3,6 +3,7 @@ import CourseList from './CourseList';
 
 import '../../styles/browse.css';
 import Dropdown from '../global/Dropdown';
+import Textfield from '../global/Textfield'
 const fakeClasses = [
     {
         title: "ELEC278",
@@ -36,7 +37,7 @@ export default function Browse() {
                 {/* Department Dropdown */}
                 <Dropdown data={fakeDepartments} prompt={"Select a Department"}/>
                 {/* Course Number Input */}
-                <div>Input Course Number</div>
+                <Textfield prompt={"Enter a Course Code"}></Textfield>
             </div>
             {/* Display All Classes */}
             <div>
