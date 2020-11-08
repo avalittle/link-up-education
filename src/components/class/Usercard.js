@@ -21,13 +21,16 @@ const useStyles = makeStyles({
       transform: 'scale(0.8)',
     },
     title: {
-      fontSize: 14,
+      fontSize: 28,
       color: '#FFFFFF',
     },
     pos: {
       marginBottom: 12,
     },
-  });
+    match: {
+      justifyContent: 'center'
+    }
+  }); 
 
 export default function UserCard(props){
     const users = useStyles();
@@ -35,9 +38,11 @@ export default function UserCard(props){
 
     const bull = <span className={users.title}>•</span>;
     const { user } = props;
+    console.log(user);
 
     const handleMatch = () => {
-        history.users(`/users/${user.title}`);
+      
+        // history.users(`/users/${user.title}`);
     }
 
 
@@ -55,8 +60,8 @@ export default function UserCard(props){
               {user.assignment}
             </Typography>
           </CardContent>
-          <CardActions>
-            <Button onClick={handleMatch}size="small">Match</Button>
+          <CardActions classes={users.match}>
+            <Button onClick={handleMatch}size="small">Match with {user.name.split(' ')[0]}</Button>
           </CardActions>
         </Card>
         </li>

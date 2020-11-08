@@ -1,5 +1,7 @@
 .course-page {
-    padding: 10%;
+    padding: 2%;
+    text-align: center;
+    margin: auto;
 }
 .user-list {
     /*display: flex;*/

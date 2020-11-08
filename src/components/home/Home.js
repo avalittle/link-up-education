@@ -31,7 +31,7 @@ export default function Home() {
     }
 
     return (
-        <div className='container'>
+        <div className='home-container'>
             <div className='left-half'>
                 <img src={leftSide} alt="leftside" className='image'></img>
             </div>
@@ -40,11 +40,11 @@ export default function Home() {
                     <h1>{title}</h1>
                 </div>
                 <div className='login'>
-                    <Button onClick={openLogin} size="large" variant='contained'>Login</Button>
+                    <Button onClick={openLogin} size="large" variant='outlined'>Login</Button>
                     <br></br>
                     <br></br>
                     <br></br>
-                    <Button onClick={openRegister} size="large" variant='contained'>Register</Button>
+                    <Button onClick={openRegister} size="large" variant='outlined'>Register</Button>
                 </div>
                 <Login open={loginOpen} onClose={handleClose} />
                 <Register open={registerOpen} onClose={handleClose} />

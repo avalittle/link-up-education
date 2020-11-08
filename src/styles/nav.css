@@ -1,7 +1,7 @@
 .nav-container {
     display: flex;
     justify-content: space-between;
-    background-color: pink;
+    background-color: '#0085FF';
 }
 .nav-container a {
     text-decoration: none;

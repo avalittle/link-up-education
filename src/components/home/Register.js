@@ -158,7 +158,7 @@ export default function Register(props) {
               </ListItem>
               <ListItem>
                 <Button onClick={handleBack}>Back</Button>
-                  <Button onClick={confirmRegister}>Confirm</Button>
+                <Button onClick={confirmRegister}>Confirm</Button>
               </ListItem>
             </List>
           </DialogContent>

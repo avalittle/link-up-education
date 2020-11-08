@@ -14,6 +14,10 @@ const useStyles = makeStyles({
     root: {
       'background-color': '#C4C4C4',
       color: '#FFFFFF',
+      '&hover': {
+        'border-thickness': '2px',
+        'border-color': 'black',
+      },
     },
     bullet: {
       display: 'inline-block',
@@ -37,7 +41,7 @@ export default function CourseCard(props){
     const { course } = props;
 
     const handleEnroll = () => {
-        history.push(`/courses/${course.classId}`);
+        history.push(`/class/${course.classId}`);
     }
 
     return (

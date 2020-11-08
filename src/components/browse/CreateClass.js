@@ -14,25 +14,16 @@ import { Button } from "@material-ui/core";
 
 import "../../styles/login.css";
 
-const emails = ["username@gmail.com", "user02@gmail.com"];
-const useStyles = makeStyles({
-  avatar: {
-    backgroundColor: blue[100],
-    color: blue[600],
-  },
-});
-
 export default function CreateClass(props) {
-  const classes = useStyles();
-  const { onClose, open } = props;
-  const { userHasAuthenticated } = useAppContext();
+  const { course, onClose, open } = props;
   const history = useHistory();
+  const { userHasAuthenticated } = useAppContext();
 
   const handleClose = () => {
     onClose();
   };
 
-  const [code, setCode] = useState('');
+  const [code, setCode] = useState(course);
   const [name, setName] = useState('');
   const [faculty, setFaculty] = useState('');
   const handleCodeChange = e => { setCode(e.target.value); };
@@ -46,6 +37,9 @@ export default function CreateClass(props) {
         name: name,
         faculty: faculty,
     })
+    window.alert('Success! Thank you for adding a new course')
+    onClose();
+    history.push(`/class/${code}`)
   }
 
   function createCourse(course){

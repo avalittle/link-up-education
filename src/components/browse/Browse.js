@@ -9,10 +9,10 @@ import '../../styles/browse.css';
 import Dropdown from '../global/Dropdown';
 import CreateClass from './CreateClass';
 
-const fakeDepartments = ['Engineering', 'School of Computing', 'Biology', 'Chemistry'];
-
 export default function Browse() {
+    const [loaded, setLoaded] = useState(false);
     const [classes, setClasses] = useState([]);
+    const [faculties, setFaculties] = useState([]);
     const [department, setDepartment] = useState('')
     const [courseCode, setCourseCode] = useState('');
     const [open, setOpen] = useState(false);
@@ -27,10 +27,16 @@ export default function Browse() {
             return API.get("lab-partner", `/classes/faculty/${department}`)
         }
 
+        function loadFaculties(){
+            return API.get("lab-partner", '/classes/get-faculties');
+        }
+
         async function onLoad(){
             try {
                 const classes = await loadCourses();
                 setClasses(classes);
+                const facultyList = await loadFaculties();
+                setFaculties(['None', ...facultyList]);
             } catch(e) {
                 console.log(e);
             }
@@ -47,11 +53,16 @@ export default function Browse() {
 
         console.log(department);
         if (department !== ''){
-            onDepartment(department);
-        } else {
+            if (department === 'None') {
+                onLoad();
+            } else {
+                onDepartment(department);
+            }
+        } else if (!loaded) {
             onLoad();
+            setLoaded(true);
         }
-    }, [department])
+    }, [loaded, department])
 
     const handleClose = () => { 
         setOpen(false);
@@ -85,26 +96,30 @@ export default function Browse() {
                 <h1>Course Browser</h1>
             </div>
             {/* Filters */}
-            <div style={{ width: '50%', margin: 'auto', textAlign: 'center'}}>
+            <div style={{ width: '30%', margin: 'auto', textAlign: 'center'}}>
                 {/* Department Dropdown */}
-                <Dropdown handleChange={setDepartment} data={fakeDepartments} prompt={"Select a Department"} />
-                {/* Course Number Input */}
-                <TextField onChange={handleCourseCode} value={courseCode} placeholder="Course Code"></TextField>
+                <Dropdown handleChange={setDepartment} data={faculties} prompt={"Select a Department"} />
                 <br></br>
-                <Button onClick={handleSearch}>Search</Button>
+                
+                {/* Course Number Input */}
+                <TextField style={{width: '40%'}} onChange={handleCourseCode} value={courseCode} placeholder="Course Code"></TextField>
+                <br></br>
+                <br></br>
+
+                <Button variant="outlined" onClick={handleSearch}>Search</Button>
             </div>
             {/* Display All Classes */}
-            <div>
+            <div style={{paddingTop: '50px', margin: 'auto', textAlign: 'center'}}>
                 {classes.length > 0 ?
                     <CourseList classes={classes} />
                     :
-                    <div>
-                        <h5>Looks like that class isn't on here yet!</h5>
-                        <Button onClick={handleNewCourse}>Add A Course!</Button>
+                    <div style={{textAlign: 'center', margin: 'auto'}}>
+                        <h3>Looks like there aren't any classes that meet the critera</h3>
+                        <Button variant="outlined" onClick={handleNewCourse}>Add A Course</Button>
                     </div>
                 }
             </div>
-            <CreateClass open={open} onClose={handleClose}/>
+            <CreateClass course={courseCode} open={open} onClose={handleClose}/>
         </div >
     )
 }
