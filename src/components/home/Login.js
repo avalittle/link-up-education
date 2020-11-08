@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Auth } from "aws-amplify";
-
+import { useAppContext } from '../../libs/contextLib';
 
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -12,6 +12,7 @@ import TextField from "@material-ui/core/TextField";
 
 import "../../styles/login.css";
 import { Button } from "@material-ui/core";
+import { useHistory } from 'react-router-dom';
 
 const emails = ["username@gmail.com", "user02@gmail.com"];
 const useStyles = makeStyles({
@@ -21,9 +22,11 @@ const useStyles = makeStyles({
   },
 });
 
-export default function LoginPopup(props) {
+export default function Login(props) {
   const classes = useStyles();
   const { onClose, open } = props;
+  const { userHasAuthenticated } = useAppContext();
+  const history = useHistory();
 
   const handleClose = () => {
     onClose();
@@ -39,7 +42,8 @@ export default function LoginPopup(props) {
 
     try {
       await Auth.signIn(email, password);
-      alert("Logged in");
+      userHasAuthenticated(true);
+      history.push('/browse');
     } catch (e) {
       alert(e.message);
     }

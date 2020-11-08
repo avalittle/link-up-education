@@ -1,30 +1,43 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Auth } from 'aws-amplify';
+
+import { AppContext } from './libs/contextLib';
+
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
- 
-import Home from './components/home/Home';
-import About from './components/About';
-import Contact from './components/Contact';
-import Error from './components/Error';
-import Login from './components/Login';
+
+import Routes from './Routes';
 import Navigation from './components/Navigation';
- 
-class App extends Component {
-  render() {
-    return (      
-       <BrowserRouter>
-        <div>
-          <Navigation />
-            <Switch>
-             <Route path="/" component={Home} exact/>
-             <Route path="/about" component={About}/>
-             <Route path="/contact" component={Contact}/>
-             <Route path="/login" component={Login}/>
-            <Route component={Error}/>
-           </Switch>
-        </div> 
-      </BrowserRouter>
-    );
+
+function App() {
+  const [isAuthenticating, setIsAuthenticating] = useState(true);
+  const [isAuthenticated, userHasAuthenticated] = useState(false);
+
+  useEffect(() => {
+    onLoad();
+  }, []);
+  
+  async function onLoad() {
+    try {
+      await Auth.currentSession();
+      userHasAuthenticated(true);
+    }
+    catch(e) {
+      if (e !== 'No current user') {
+        alert(e);
+      }
+    }
+  
+    setIsAuthenticating(false);
   }
+  return (
+    !isAuthenticating && 
+      <div>
+        <AppContext.Provider value={{ isAuthenticated, userHasAuthenticated }}>
+          { isAuthenticated ? <Navigation auth={userHasAuthenticated}/> : <></> }
+          <Routes />
+        </AppContext.Provider>
+      </div>
+  );
 }
- 
+
 export default App;

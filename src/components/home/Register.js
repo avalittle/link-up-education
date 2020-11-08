@@ -14,7 +14,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function RegisterPopup(props) {
+export default function Register(props) {
   const classes = useStyles();
   const { onClose, open } = props;
   const [userInfo, setUserInfo] = useState({});
