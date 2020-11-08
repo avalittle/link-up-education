@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Auth } from "aws-amplify";
+import { API, Auth } from "aws-amplify";
 import { useAppContext } from '../../libs/contextLib';
 
 import List from "@material-ui/core/List";
@@ -14,6 +14,7 @@ import { Button } from "@material-ui/core";
 
 import "../../styles/login.css";
 
+const emails = ["username@gmail.com", "user02@gmail.com"];
 const useStyles = makeStyles({
   avatar: {
     backgroundColor: blue[100],
@@ -21,7 +22,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Login(props) {
+export default function CreateClass(props) {
   const classes = useStyles();
   const { onClose, open } = props;
   const { userHasAuthenticated } = useAppContext();
@@ -31,21 +32,26 @@ export default function Login(props) {
     onClose();
   };
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const handleEmailChange = e => { setEmail(e.target.value); };
-  const handlePasswordChange = e => { setPassword(e.target.value); }
+  const [code, setCode] = useState('');
+  const [name, setName] = useState('');
+  const [faculty, setFaculty] = useState('');
+  const handleCodeChange = e => { setCode(e.target.value); };
+  const handleNameChange = e => { setName(e.target.value); }
+  const handleFacultyChange = e => { setFaculty(e.target.value); }
 
-  const handleLogin = async (e) => {
+  const handleNewCourse = async (e) => {
     e.preventDefault();
+    createCourse({
+        classId: code,
+        name: name,
+        faculty: faculty,
+    })
+  }
 
-    try {
-      await Auth.signIn(email, password);
-      userHasAuthenticated(true);
-      history.push('/browse');
-    } catch (e) {
-      alert(e.message);
-    }
+  function createCourse(course){
+      return API.post("lab-partner", "/create-class", {
+          body: course
+      })
   }
 
   return (
@@ -54,27 +60,34 @@ export default function Login(props) {
       aria-labelledby="simple-dialog-title"
       open={open}
     >
-      <DialogTitle id="simple-dialog-title">Login</DialogTitle>
+      <DialogTitle id="simple-dialog-title">Create Class </DialogTitle>
       <List className="inputs">
         <ListItem>
           <TextField
             id="standard-basic"
-            label="Email"
-            onChange={handleEmailChange}
-            value={email}
+            label="Course Code"
+            onChange={handleCodeChange}
+            value={code}
           />
         </ListItem>
         <ListItem>
           <TextField
             id="standard-basic"
-            label="Password"
-            onChange={handlePasswordChange}
-            value={password}
-            type="password"
+            label="Faculty"
+            onChange={handleFacultyChange}
+            value={faculty}
           />
         </ListItem>
         <ListItem>
-          <Button onClick={handleLogin}>Login</Button>
+          <TextField
+            id="standard-basic"
+            label="Course Name"
+            onChange={handleNameChange}
+            value={name}
+          />
+        </ListItem>
+        <ListItem>
+          <Button onClick={handleNewCourse}>Submit</Button>
         </ListItem>
       </List>
     </Dialog>

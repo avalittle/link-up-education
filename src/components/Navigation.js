@@ -3,7 +3,8 @@ import { NavLink, useHistory } from 'react-router-dom';
 import Button from '@material-ui/core/Button'
 import { Auth } from 'aws-amplify';
 
-const Navigation = ({auth}) => {
+import '../styles/nav.css';
+const Navigation = ({ auth }) => {
    const history = useHistory();
 
    const handleLogout = async () => {
@@ -12,14 +13,30 @@ const Navigation = ({auth}) => {
       history.push('/');
    }
 
-    return (
-       <div>
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/about">About</NavLink>
-          <NavLink to="/browse">Browse</NavLink>
-          <Button onClick={handleLogout} >Log Out</Button>
-       </div>
-    )
+   return (
+      <div className="nav-container">
+         <div className="home">
+            <NavLink to="/">Home</NavLink>
+         </div>
+         <div className="pages">
+            <ul>
+               <li>
+                  <NavLink to="/about">About</NavLink>
+               </li>
+               <li>
+                  <NavLink to="/browse">Browse</NavLink>
+               </li>
+               <li>
+                  <NavLink to="/matches">Matches</NavLink>
+               </li>
+               <li>
+                  <a href="/" onClick={handleLogout}>Log Out</a>
+               </li>
+            </ul>
+         </div>
+
+      </div>
+   )
 }
- 
+
 export default Navigation;

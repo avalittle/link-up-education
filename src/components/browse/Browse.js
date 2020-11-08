@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API } from 'aws-amplify';
 import CourseList from './CourseList';
 
 import List from "@material-ui/core/List";
@@ -13,6 +14,7 @@ import { Button } from "@material-ui/core";
 import '../../styles/browse.css';
 import Dropdown from '../global/Dropdown';
 import Textfield from '../global/Textfield'
+import CreateClass from './CreateClass';
 const fakeClasses = [];/*[
     {
         title: "ELEC278",
@@ -30,15 +32,30 @@ export default function Browse() {
     const [classes, setClasses] = useState(fakeClasses);
     const [department, setDepartment] = useState('')
     const [courseCode, setCourseCode] = useState('');
+    const [open, setOpen] = useState(false);
 
     useEffect(() => {
         // Get filtered classes
+        function loadNote(){
+            return API.get("lab-partner", `/classes/${courseCode}`)
+        }
+        async function onLoad(){
+            try {
+                const note = loadNote();
+            } catch(e) {
+                console.log(e);
+            }
+        }
+        onLoad();
+    }, [department])
 
+    const handleClose = () => { 
+        setOpen(false);
+    }
 
-
-
-    }, [department, courseCode])
-
+    const handleNewCourse = () => {
+        setOpen(true);
+    }
     const handleDropdown = (value) => {
         setDepartment(value);
         // setClasses(getFilteredClasses(value))
@@ -46,6 +63,17 @@ export default function Browse() {
     const handleCourseCode = (e) => {
         setCourseCode(e.target.value);
     }
+
+    const handleSearch = async () => {
+        const res = await API.get("lab-partner", `/classes/${courseCode}`)
+            .catch(err => {
+                console.log(err);
+                setClasses([]);
+            })
+        console.log(res);
+    }
+
+
 
     return (
         <div className='browse-container'>
@@ -65,24 +93,10 @@ export default function Browse() {
                 {classes.length > 0 ?
                     <CourseList classes={classes} />
                     :
-                    <>
-                        <DialogTitle id="simple-dialog-title"></DialogTitle>
-                        <List className="inputs">
-                            <ListItem>
-                                <TextField
-                                    couseCode="standard-basic"
-                                    label="Enter Course Code"
-                                    onChange={handleCourseCode}
-                                    value={courseCode}
-                                />
-                            </ListItem>
-                            <ListItem>
-                                <Button onClick={handleCourseCode}>Search</Button>
-                            </ListItem> 
-                        </List>
-                    </>
+                    <Button onClick={handleNewCourse}>Add A Course!</Button>
                 }
             </div>
+            <CreateClass open={open} onClose={handleClose}/>
         </div >
     )
 }

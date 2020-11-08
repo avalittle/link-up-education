@@ -46,11 +46,9 @@ export default function Home() {
                     <br></br>
                     <Button onClick={openRegister} size="large" variant='contained'>Register</Button>
                 </div>
-                <LoginPopup open={loginOpen} onClose={handleClose} />
-                <RegisterPopup open={registerOpen} onClose={handleClose} />
+                <Login open={loginOpen} onClose={handleClose} />
+                <Register open={registerOpen} onClose={handleClose} />
             </div>
-            <Login open={loginOpen} onClose={handleClose} />
-            <Register open={registerOpen} onClose={handleClose} />
         </div>
     );
 }
