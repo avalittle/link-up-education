@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { Auth } from "aws-amplify";
+
+
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -31,10 +34,15 @@ export default function LoginPopup(props) {
   const handleEmailChange = e => { setEmail(e.target.value); };
   const handlePasswordChange = e => { setPassword(e.target.value); }
 
-  const handleLogin = () => {
-    console.log("Loggin in!");
-    console.log(email);
-    console.log(password);
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      await Auth.signIn(email, password);
+      alert("Logged in");
+    } catch (e) {
+      alert(e.message);
+    }
   }
 
   return (
