@@ -1,0 +1,16 @@
+.browse-container {
+    padding: 10%;
+    color: '#0085FF';
+}
+.course-list {
+    display: flex;
+    flex-flow: row wrap;
+}
+.course-card {
+    width: 40%;
+    margin: 5px;
+    list-style: none;
+}
+.course-card:hover {
+    cursor: pointer;
+}

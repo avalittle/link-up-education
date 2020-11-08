@@ -6,6 +6,7 @@ import About from './components/About';
 import Contact from './components/Contact';
 import Error from './components/Error';
 import Login from './components/Login';
+import Browse from './components/browse/Browse';
 import Navigation from './components/Navigation';
  
 class App extends Component {
@@ -19,6 +20,7 @@ class App extends Component {
              <Route path="/about" component={About}/>
              <Route path="/contact" component={Contact}/>
              <Route path="/login" component={Login}/>
+             <Route path="/browse" component={Browse} />
             <Route component={Error}/>
            </Switch>
         </div> 
