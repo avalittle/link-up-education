@@ -1,6 +1,5 @@
 import React from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
-import Button from '@material-ui/core/Button'
 import { Auth } from 'aws-amplify';
 
 import '../styles/nav.css';
@@ -16,7 +15,7 @@ const Navigation = ({ auth }) => {
    return (
       <div className="nav-container">
          <div className="home">
-            <NavLink to="/">Home</NavLink>
+            {/* <NavLink to="/">Home</NavLink> */}
          </div>
          <div className="pages">
             <ul>
