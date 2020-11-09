@@ -1,0 +1,37 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter");
+
+.home-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.title {
+  padding-top: 100px;
+  text-align: center;
+  font-family: "Inter";
+  font-size: 40px;
+  color: #3E3E3E;
+}
+
+
+
+.login {
+  text-align: center;
+  size: 20px;
+}
+
+
+.left-half {
+  flex: 40%;
+}
+
+.right-half {
+  flex: 60%;
+  text-align: center;
+}
+
+.image {
+    width: 100%;
+    height: auto;
+}
