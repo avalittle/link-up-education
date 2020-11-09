@@ -1,0 +1,17 @@
+.course-page {
+    padding: 2%;
+    text-align: center;
+    margin: auto;
+}
+.user-list {
+    /*display: flex;*/
+    flex-flow: row wrap;
+}
+.user-card {
+    width: 100%;
+    margin: 5px;
+    list-style: none;
+}
+.user-card:hover {
+    cursor: pointer;
+}

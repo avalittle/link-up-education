@@ -1,0 +1,16 @@
+.browse-container {
+    padding: 2%;
+}
+.course-list {
+    justify-content: center;
+    display: flex;
+    flex-flow: row wrap;
+}
+.course-card {
+    width: 40%;
+    margin: 5px;
+    list-style: none;
+}
+.course-card:hover {
+    cursor: pointer;
+}

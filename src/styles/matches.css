@@ -1,0 +1,15 @@
+.match-container {
+    padding: 2%;
+}
+.match-list {
+    display: flex;
+    flex-flow: row wrap;
+}
+.matches-card {
+    width: 40%;
+    margin: 5px;
+    list-style: none;
+}
+.match-card:hover {
+    cursor: pointer;
+}
