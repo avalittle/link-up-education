@@ -71,6 +71,9 @@ export default function Register(props) {
     try {
       await Auth.confirmSignUp(email, confirmationCode);
       await Auth.signIn(email, password);
+
+      // TODO: Call createUser here!
+      
       onClose();
       history.push("/browse");
     } catch (e) {
